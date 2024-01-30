@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Game</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #chessboard {
+      display: grid;
+      grid-template-columns: repeat(8, 50px);
+      grid-template-rows: repeat(8, 50px);
+    }
+
+    .square {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      border: 1px solid #333;
+      background-color: #fff;
+    }
+
+    .even {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+
+<div id="chessboard"></div>
+
+<script>
+  const chessboard = document.getElementById("chessboard");
+
+  // Create the chessboard
+  for (let row = 0; row < 8; row++) {
+    for (let col = 0; col < 8; col++) {
+      const square = document.createElement("div");
+      square.className = `square ${((row + col) % 2 === 0) ? 'even' : ''}`;
+      square.dataset.row = row;
+      square.dataset.col = col;
+      square.addEventListener("click", handleSquareClick);
+      chessboard.appendChild(square);
+    }
+  }
+
+  // Example piece placement (for testing)
+  placePiece(0, 0, '♜');
+  placePiece(0, 7, '♜');
+  placePiece(7, 0, '♖');
+  placePiece(7, 7, '♖');
+
+  // Function to handle square clicks
+  function handleSquareClick(event) {
+    const selectedSquare = event.target;
+    console.log(`Clicked on square (${selectedSquare.dataset.row}, ${selectedSquare.dataset.col})`);
+    // Add your logic for moving pieces here
+  }
+
+  // Function to place a piece on the chessboard
+  function placePiece(row, col, piece) {
+    const square = chessboard.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+    square.textContent = piece;
+  }
+</script>
+
+</body>
+</html>
